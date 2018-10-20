@@ -1,0 +1,111 @@
+1.패키지/프로그램 관리(apt-get)
+    - sudo apt-get update       //패키지 업데이트
+    - sudo apt-get upgrade      //패키지 업그레이드
+    - sudo apt-get install      //패키지 설치
+    - sudo apt-get remove       //패키지 삭제
+
+    ※ 두개의 명령어 사이에 &&를 넣어주면, 두개의 명령어를 순차적으로 실행시킬 수 있다. 
+
+2. 파일관리
+
+    - ls //현재 위치의 파일이나 폴더의 목록을 보여준다.
+        -a : 모든 파일의 리스트를 보기 위해 쓰는 옵션으로, 모든 파일과 디렉토리 및 숨김파일까지 다 보여준다.
+        -l : 각각의 디렉토리나 파일의 정보를 함께 보여준다. 파일의 권한 및 소유자, 소유그룹, 용량 등을 보여준다.
+        -h : 파일의 용량을 보기 좋은 단위로 보여준다.
+
+        - sudo lsusb // 연결된 usb 장치 리스트
+        - sudo lsmod // list all loaded drivers
+
+    - cd 폴더이름 // 해당폴더로 이동.
+    - mkdir 폴더이름 // make directory의 약자. 폴더를 생성한다.
+    - rm 폴더이름 // 파일을 삭제하는 명령. (-f 강제삭제)
+    - rmdir 폴더이름 // 폴더를 삭제하는 명령. 폴더안에 파일이 있을 시에는 rm -rf 폴더이름 이용.
+
+3. 기타
+    - sudo rspi-config // 파이의 시스템 설정 변경.
+    - dpkg -get-selections : show all installed packages
+    - dpkg -get-selections | grep <packagename> : find a specific package
+
+    - passwd //계정의 비밀번호를 변경하는 명령어.
+        sudo passwd root
+        sudo passwd username
+    - pwd //현재 사용자가 위치하고 있는 디렉토리의 절대경로를 출력해 주는 명령어.
+    - fdisk (디바이스 명) // 해당 디바이스의 파티션을 조정할 수 있음.
+    - chmod // 파일이나 디렉토리의 권한을 변경하여 준다.
+        chmod 777/pogodata : /pagodata 디렉토리의 권한을 777로 설정해 주는 것.
+        -R 옵션이 추가되면 하부 디렉토리까지 적용이 가능하다.
+    
+    - chown //소유자나 소유그룹을 변경할 수 있는 명령어.
+        chown pogo_user test : test라는 파일의 소유자를 pogo_user로 변경한다.
+        chown :family test : test라는 파일의 소유그룹을 family로 변경하는 것.
+        chown pogo_user:family test : test라는 파일의 소유자, 소유그룹을 한꺼번에 변경할 수 있다.
+
+    - which //명령어 파일의 경로를 알려준다.
+        which (찾을명령어)
+    
+    - whereis (명령어) //명령어의 실행파일위치, 소스위치, 메뉴얼 페이지 파일위치를 찾아주는 명령어로써 명령어의 위치만을 찾아주는 which에 비해 포괄적 명령어임.
+    - whatis (명령어) // 명령어의 역할을 간단히 알려주는 기능.
+    - (명령어)--help //명령어 뒤에 붙여주면 간단한 기능 및 옵션에 대하여 알려준다.
+
+    - man (명령어) // 명렁어의 메뉴얼 파일을 보여준다. man rtmpdump > rtmp.txt :rtmpdump의 메뉴얼을 rtmp.txt 파일로 저장한다.
+    - | more // 사용하는 명령 뒤에 붙여서 쓰는 것으로 출력의 내용이 너무 길어 한페이지에 다 볼 수 없을 때 출력결과를 끊어서 보여주는 역할을 함.
+    - df(Disk Free) // df 명령은 디바이스의 용량 및 마운트 경로, 파티션 정보 등을 보여주는 명령입니다.
+    - mkfs -t [파일 시스템 타입] [디바이스 명] // 디바이스를 파일 시스템 타입으로 포맷하겠다.
+    - fsck -t [파일 시스템 타입] [디바이스 명] // 손상된 파일 시스템을 점검하고 복구시킨다.
+    - uptime // 시스템의 부하율을 보여준다.
+    - top, htop // 시스템 모니터링을 위한 명령어.
+    - free // 메모리의 사용현황을 보여준다.
+    - tar 
+        묶을 때 : tar cvfz(압축파일.tar.z)(압축대상파일 및 디렉토리)
+        풀 때 : tar.xvfz (압축파일.tar.z)
+
+    - halt // 시스템을 종료
+    - reboot // 시스템을 재부팅
+
+    - wget // 외부 웹서버로부터 파일을 다운받는 명령어. 기본적으로 url과 몇 가지 옵션이 들어감.
+
+4. 라즈베리파이 전용 명령어
+
+    - cat/proc/hardwarename // 하드웨어 정보를 보여준다.
+        ex) cat /proc/cpuinfo : cpu정보
+            cat /proc/meminfo : 메모리 정보
+            cat /proc/partitions : 파티션 정보
+            cat /proc/version : 파이버전 정보
+        
+    - cat /sys/class/net/eht0/address : 맥어드레스 주소 얻기
+    - vcgencmd systemname : 기타 시스템 정보
+        ex) vcgencmd measure_temp : cpu 온도
+    - cpu 클럭주파수 정보 [kHz]
+
+        cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+        cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_main_freq
+        cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+    - vcgencmd measure_clock CLOCKNAME // 클럭 주파수 확인.[Hz] (h264, isp, v3d, uart, pwm ,emmc, pixel, vec, hdmi, dpi, arm)
+    - vcgencmd measure_volts VOLTNAME // 전압확인. (core, sdram_c, sdram_i, sdram_p)
+    
+    <Shell script 만들기>
+
+    - sudo mkdir /home/pi/Code              //디렉토리 생성
+    - sudo nano /home/pi/Code/updatePI.sh   //나노를 가지고 쉘스크립트를 사용
+
+        쉘 스크립트 내용
+
+        #1/bin/bash
+        date
+            echo UPDATING SYSTEM SOFTWARE - UPDATE
+        sudo apt-get update
+            echo UPDATING SYSTEM SOFTWARE - UPGRADE
+        sudo apt-get upgrade    
+            echo UPDATING SYSTEM SOFTWARE - DISTRIBUTION
+        sudo apt-get dist-upgrade
+            echo REMOVING APPLICATION ORPHANS
+        sudo apt-get autoremove -purge
+            echo UPDATING FIRMWARE
+        sudo rpi-update
+
+    - sudo chmod +x /home/pi/Code/updatePI.sh       // 쉘 스크립트를 실행가능하게 모드 변경
+    - sudo /home/pi/Code/updatePI.sh                // 쉘 스크립트 실행
+    - sudo ./updatePi.sh                            // 쉘 스크립트 실행 (현재 디렉토리에서)
+    
+
